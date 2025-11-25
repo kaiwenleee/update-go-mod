@@ -179,8 +179,8 @@ func (o Offset) At(at int64) Offset {
 }
 
 type consumer struct {
-	bufferedRecords atomicI64
-	bufferedBytes   atomicI64
+	bufferedRecords atomic.Int64
+	bufferedBytes   atomic.Int64
 
 	cl *Client
 
@@ -280,7 +280,7 @@ func (c *consumer) waitAndAddRebalance() {
 	for c.pollWaitState&math.MaxUint32 != 0 {
 		if !blockedCalled {
 			if c.cl.cfg.onBlocked != nil {
-				c.cl.cfg.onBlocked(c.cl.ctx, c.cl)
+				go c.cl.cfg.onBlocked(c.cl.ctx, c.cl)
 			}
 			blockedCalled = true
 		}
@@ -1503,7 +1503,7 @@ type consumerSession struct {
 	desireFetchCh       chan chan chan struct{}
 	cancelFetchCh       chan chan chan struct{}
 	allowedFetches      int
-	fetchManagerStarted atomicBool // atomic, once true, we start the fetch manager
+	fetchManagerStarted atomic.Bool // atomic, once true, we start the fetch manager
 
 	// Workers signify the number of fetch and list / epoch goroutines that
 	// are currently running within the context of this consumer session.
