@@ -8,5 +8,7 @@ updates:
     ignore:
       - dependency-name: "k8s.io/api*" # it will updated by k8s.io/client-go, otherwise can cause conflict https://github.com/kubernetes/client-go/blob/master/INSTALL.md#conflicting-requirements-for-older-client-go-versions
     directory: "/"
+    cooldown:
+      default-days: 5
     schedule:
       interval: "weekly"
