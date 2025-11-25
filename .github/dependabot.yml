@@ -1,6 +1,12 @@
 version: 2
 updates:
   - package-ecosystem: "gomod"
+    groups:
+      k8s.io: # Group k8s.io dependencies
+        patterns:
+          - "k8s.io/*"
+    ignore:
+      - dependency-name: "k8s.io/api*" # it will updated by k8s.io/client-go, otherwise can cause conflict https://github.com/kubernetes/client-go/blob/master/INSTALL.md#conflicting-requirements-for-older-client-go-versions
     directory: "/"
     schedule:
       interval: "weekly"

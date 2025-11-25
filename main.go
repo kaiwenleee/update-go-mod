@@ -17,6 +17,12 @@ import (
 	_ "github.com/twmb/franz-go/pkg/kgo"
 	_ "google.golang.org/grpc"
 	_ "google.golang.org/protobuf/types/known/emptypb"
+	_ "k8s.io/api/core/v1"
+	_ "k8s.io/api/rbac/v1"
+	_ "k8s.io/apimachinery/pkg/api/errors"
+	_ "k8s.io/apimachinery/pkg/apis/meta/v1"
+	_ "k8s.io/client-go/kubernetes"
+	_ "k8s.io/client-go/rest"
 )
 
 func main() {}
